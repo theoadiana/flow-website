@@ -73,12 +73,44 @@
       transform: scale(1.05);
     }
 
+    /* Hamburger Menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 0.5rem;
+      background: none;
+      border: none;
+      gap: 4px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--text-dark);
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(50deg) translate(6px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-48deg) translate(5px, -4px);
+    }
+
     .nav-list {
       display: flex;
       gap: 1rem;
       list-style: none;
       flex-wrap: wrap;
       justify-content: center;
+      transition: all 0.3s ease;
     }
 
     .nav-item {
@@ -447,14 +479,6 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-
-    .footer-logo {
-      height: 50px;
-      width: auto;
-      margin-bottom: 1.5rem;
-      opacity: 0.9;
-    }
-
     .footer-links {
       display: flex;
       justify-content: center;
@@ -498,17 +522,45 @@
     @media (max-width: 768px) {
       .navbar {
         padding: 0.8rem 1rem;
-        flex-direction: column;
-        gap: 1rem;
+      }
+
+      .hamburger {
+        display: flex;
       }
 
       .nav-list {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 1rem;
         gap: 0.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-list.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
       }
 
       .nav-item {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+        padding: 1rem;
+        text-align: center;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.8);
+      }
+
+      .nav-item:hover {
+        background: rgba(0, 0, 0, 0.05);
       }
 
       .two-col {
@@ -526,7 +578,7 @@
 
       .hero {
         padding: 1rem;
-        margin-top: 120px; /* Adjusted for taller navbar on mobile */
+        margin-top: 80px;
       }
 
       .section {
@@ -542,14 +594,13 @@
         flex-direction: column;
         gap: 1rem;
       }
+
+      .logo {
+        height: 60px;
+      }
     }
 
     @media (max-width: 480px) {
-      .nav-list {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
       .hero-title {
         font-size: 2.5rem;
       }
@@ -559,7 +610,7 @@
       }
 
       .logo {
-        height: 35px;
+        height: 55px;
       }
     }
 
@@ -597,7 +648,15 @@
     <div class="logo-container">
       <img src="img/flowMusicLogo.png" alt="Flow Music Logo" class="logo">
     </div>
-    <ul class="nav-list">
+    
+    <!-- Hamburger Menu -->
+    <button class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <ul class="nav-list" id="navList">
       <li class="nav-item active" data-tab="home">Home</li>
       <li class="nav-item" data-tab="about">Tentang</li>
       <li class="nav-item" data-tab="services">Layanan</li>
@@ -760,7 +819,7 @@
       <div class="social-links">
         <a href="https://www.youtube.com/@Flowmusic_Official" target="_blank" class="social-link youtube">
           <i class="fab fa-youtube"></i>
-          Kunjungi YouTube Channel
+          Kunjungi YouTube
         </a>
         <a href="https://www.tiktok.com/@flowmusic_id?_r=1&_t=ZS-91nengaKD58" target="_blank" class="social-link">
           <i class="fab fa-tiktok"></i>
@@ -884,6 +943,8 @@
     document.addEventListener('DOMContentLoaded', function() {
       const navItems = document.querySelectorAll('.nav-item');
       const tabSections = document.querySelectorAll('.tab-section');
+      const hamburger = document.getElementById('hamburger');
+      const navList = document.getElementById('navList');
       
       function setActiveTab(tabName) {
         // Update nav items
@@ -896,6 +957,12 @@
           section.classList.toggle('active', section.id === tabName);
         });
         
+        // Close mobile menu after clicking
+        if (window.innerWidth <= 768) {
+          navList.classList.remove('active');
+          hamburger.classList.remove('active');
+        }
+        
         // Scroll to top when changing tabs (except home)
         if (tabName !== 'home') {
           document.getElementById(tabName).scrollIntoView({ behavior: 'smooth' });
@@ -906,6 +973,28 @@
         item.addEventListener('click', () => {
           setActiveTab(item.getAttribute('data-tab'));
         });
+      });
+      
+      // Hamburger menu toggle
+      hamburger.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navList.classList.toggle('active');
+      });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!event.target.closest('.navbar') && navList.classList.contains('active')) {
+          navList.classList.remove('active');
+          hamburger.classList.remove('active');
+        }
+      });
+      
+      // Close menu on resize if window becomes larger
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+          navList.classList.remove('active');
+          hamburger.classList.remove('active');
+        }
       });
       
       // Set home as default active tab
