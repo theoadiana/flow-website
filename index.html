@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Flow Music - Profil</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-white: #FFFFFF;
+      --bg-light: #F8F9FA;
+      --text-dark: #1A1A1A;
+      --text-muted: #4A4A4A;
+      --text-light: #6C757D;
+      --accent-color: #000000;
+      --whatsapp-color: #25D366;
+      --youtube-color: #FF0000;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.2);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Modern Navbar with Logo */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      height: 70px;
+      width: auto;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-list {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-item {
+      position: relative;
+      padding: 0.75rem 1.5rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      border-radius: 50px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .nav-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .nav-item:hover::before {
+      left: 100%;
+    }
+
+    .nav-item:hover {
+      background: rgba(0, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
+
+    .nav-item.active {
+      background: var(--accent-color);
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Hero Section - Clear & No Blur */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 2rem;
+      margin-top: 80px; /* Account for fixed navbar */
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      filter: none;
+      opacity: 1;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #1A1A1A 0%, #4A4A4A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      font-weight: 500;
+    }
+
+    /* Glassmorphism Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.7s ease;
+    }
+
+    .card:hover::before {
+      left: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 0 80px rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* WhatsApp Button Styling */
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: var(--whatsapp-color);
+      color: white;
+      padding: 1.2rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+      background: #20b858;
+    }
+
+    .whatsapp-btn i {
+      font-size: 1.4rem;
+    }
+
+    /* YouTube Button Styling */
+    .youtube-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: var(--youtube-color);
+      color: white;
+      padding: 1.2rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+
+    .youtube-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+      background: #cc0000;
+    }
+
+    .youtube-btn i {
+      font-size: 1.4rem;
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800;
+      margin-bottom: 3rem;
+      text-align: center;
+      background: linear-gradient(135deg, #1A1A1A 0%, #4A4A4A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Two Column Layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* Video Section */
+    .video-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .video-container:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Gallery Section */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      aspect-ratio: 4/3;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--accent-color);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      background: #333;
+    }
+
+    .social-link.youtube {
+      background: var(--youtube-color);
+    }
+
+    .social-link.youtube:hover {
+      background: #cc0000;
+    }
+
+    /* Footer with Logo */
+    footer {
+      background: var(--accent-color);
+      color: white;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-top: 6rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      height: 50px;
+      width: auto;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      opacity: 0.8;
+    }
+
+    /* Tabs */
+    .tab-section {
+      display: none;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0.8rem 1rem;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-list {
+        gap: 0.5rem;
+      }
+
+      .nav-item {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .video-section, .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 1rem;
+        margin-top: 120px; /* Adjusted for taller navbar on mobile */
+      }
+
+      .section {
+        padding: 4rem 0;
+      }
+
+      .social-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-list {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+
+      .logo {
+        height: 35px;
+      }
+    }
+
+    /* Additional Animations */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Scroll Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Modern Navbar with Logo -->
+  <header class="navbar">
+    <div class="logo-container">
+      <img src="img/flowMusicLogo.png" alt="Flow Music Logo" class="logo">
+    </div>
+    <ul class="nav-list">
+      <li class="nav-item active" data-tab="home">Home</li>
+      <li class="nav-item" data-tab="about">Tentang</li>
+      <li class="nav-item" data-tab="services">Layanan</li>
+      <li class="nav-item" data-tab="videos">Video</li>
+      <li class="nav-item" data-tab="gallery">Galeri</li>
+      <li class="nav-item" data-tab="contact">Kontak</li>
+    </ul>
+  </header>
+
+  <!-- Hero Section - Clear Video -->
+  <section class="hero" id="home-section">
+    <video class="hero-bg" autoplay muted loop playsinline>
+      <source src="img/logo.MOV" type="video/mp4">
+      <source src="img/logo.mov" type="video/quicktime">
+      Browser Anda tidak mendukung video HTML5.
+    </video>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content">
+      <h1 class="hero-title floating">Flow Music</h1>
+      <p class="hero-subtitle">Membawa musik berkualitas untuk setiap momen spesial Anda</p>
+      
+      <div class="cards">
+        <div class="card fade-in">
+          <div class="card-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <h3>Reguler</h3>
+          <p>Sakopi Bonpolo pukul 20.00-23.00 dengan suasana yang hangat dan intimate.</p>
+        </div>
+        
+        <div class="card fade-in">
+          <div class="card-icon">
+            <i class="fas fa-music"></i>
+          </div>
+          <h3>Event</h3>
+          <p>Hiburan musik profesional untuk berbagai acara spesial seperti ulang tahun, anniversary, dan corporate events.</p>
+        </div>
+        
+        <div class="card fade-in">
+          <div class="card-icon">
+            <i class="fas fa-ring"></i>
+          </div>
+          <h3>Wedding</h3>
+          <p>Membuat momen pernikahan Anda lebih berkesan dengan alunan musik yang tepat di setiap bagian acara.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- About Section -->
+    <section id="about" class="section tab-section">
+      <h2 class="section-title">Tentang Flow Music</h2>
+      
+      <div class="two-col">
+        <div class="fade-in">
+          <div class="card">
+            <h3>Visi & Misi</h3>
+            <p>Flow Music adalah band yang berdedikasi untuk menghadirkan pengalaman musik terbaik dalam berbagai acara. Dengan kombinasi talenta musisi berpengalaman dan repertoar yang luas, kami siap menghibur dan menciptakan atmosfer yang tepat untuk setiap momen spesial Anda.</p>
+            <p>Visi kami adalah menjadi pilihan utama untuk hiburan musik berkualitas di berbagai acara. Misi kami adalah menghadirkan performa terbaik dengan penuh dedikasi dan profesionalisme.</p>
+          </div>
+        </div>
+        
+        <div class="fade-in">
+          <div class="card">
+            <h3>Quick Facts</h3>
+            <div style="display: grid; gap: 1rem;">
+              <div>
+                <strong>Genre</strong>
+                <p>Pop, Rnb, Soul, 90s</p>
+              </div>
+              <div>
+                <strong>Berdiri</strong>
+                <p>2022</p>
+              </div>
+              <div>
+                <strong>Lokasi</strong>
+                <p>Indonesia</p>
+              </div>
+              <div>
+                <strong>Pengalaman</strong>
+                <p>100+ Event</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section tab-section">
+      <h2 class="section-title">Layanan Kami</h2>
+      
+      <div class="cards">
+        <div class="card fade-in">
+          <div class="card-icon">
+            <i class="fas fa-coffee"></i>
+          </div>
+          <h3>Reguler - Sakopi Bonpolo</h3>
+          <p>Setiap hari pukul 20.00-23.00. Nikmati musik live sambil menikmati kopi terbaik dan suasana yang hangat.</p>
+        </div>
+        
+        <div class="card fade-in">
+          <div class="card-icon">
+            <i class="fas fa-star"></i>
+          </div>
+          <h3>Acara Khusus</h3>
+          <p>Kami siap menghibur di berbagai acara seperti ulang tahun, anniversary, peluncuran produk, dan acara perusahaan.</p>
+        </div>
+        
+        <div class="card fade-in">
+          <div class="card-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Pernikahan</h3>
+          <p>Membuat momen pernikahan Anda lebih berkesan dengan musik yang tepat untuk setiap bagian acara.</p>
+        </div>
+      </div>
+      
+      <div style="margin-top: 4rem;">
+        <h3 class="section-title" style="font-size: 2rem;">Repertoar Musik</h3>
+        <div class="cards">
+          <div class="card fade-in">
+            <h3>Pop Indonesia</h3>
+            <p>Glenn Fredly, Juicy Lucy, Mahalini, HIVI, etc</p>
+          </div>
+          <div class="card fade-in">
+            <h3>Pop Internasional</h3>
+            <p>Coldplay, Beyonce, Ed Sheeran, Bruno Mars, etc</p>
+          </div>
+          <div class="card fade-in">
+            <h3>Rnb</h3>
+            <p>Boyz II Men, Brian McKnight, Babyface, etc</p>
+          </div>
+          <div class="card fade-in">
+            <h3>90s</h3>
+            <p>Dewa 19, Chrisye, Reza Artamevia, Whitney Houston, etc</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="section tab-section">
+      <h2 class="section-title">Video Flow Music</h2>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Tonton penampilan terbaru kami di YouTube dan kunjungi channel official kami!</p>
+      
+      <div class="video-section">
+        <div class="video-container fade-in">
+          <iframe src="https://www.youtube.com/embed/SBcdotFasH8" title="Flow Music YouTube Video 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        
+        <div class="video-container fade-in">
+          <iframe src="https://www.youtube.com/embed/vgLvXEWpUhg" title="Flow Music YouTube Video 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+      
+      <div class="social-links">
+        <a href="https://www.youtube.com/@Flowmusic_Official" target="_blank" class="social-link youtube">
+          <i class="fab fa-youtube"></i>
+          Kunjungi YouTube Channel
+        </a>
+        <a href="https://www.tiktok.com/@flowmusic_id?_r=1&_t=ZS-91nengaKD58" target="_blank" class="social-link">
+          <i class="fab fa-tiktok"></i>
+          Ikuti Kami di TikTok
+        </a>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section tab-section">
+      <h2 class="section-title">Galeri Flow Music</h2>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Lihat momen-momen spesial kami</p>
+      
+      <div class="gallery">
+        <div class="gallery-item fade-in">
+          <img src="img/IMG_6240.JPG" alt="Flow Music Performance 1" loading="lazy">
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="img/IMG_6262.JPG" alt="Flow Music Performance 2" loading="lazy">
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="img/IMG_6300.JPG" alt="Flow Music Performance 3" loading="lazy">
+        </div>
+        <div class="gallery-item fade-in">
+          <img src="img/IMG_6308.JPG" alt="Flow Music Performance 4" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section with WhatsApp -->
+    <section id="contact" class="section tab-section">
+      <h2 class="section-title">Kontak & Booking</h2>
+      
+      <div class="two-col">
+        <div class="fade-in">
+          <div class="card">
+            <h3>Informasi Kontak</h3>
+            <div style="display: grid; gap: 1.5rem;">
+              <div>
+                <strong>Instagram</strong>
+                <p><a href="https://instagram.com/flowmusic.id" target="_blank" style="color: var(--text-dark);">@flowmusic.id</a></p>
+              </div>
+              <div>
+                <strong>Email</strong>
+                <p><a href="mailto:flow2022music@gmail.com" style="color: var(--text-dark);">flow2022music@gmail.com</a></p>
+              </div>
+              <div>
+                <strong>WhatsApp Booking</strong>
+                <p>+62 822-2321-0102</p>
+              </div>
+              <div>
+                <strong>YouTube</strong>
+                <p><a href="https://www.youtube.com/@Flowmusic_Official" target="_blank" style="color: var(--text-dark);">@Flowmusic_Official</a></p>
+              </div>
+              <div>
+                <strong>Lokasi Reguler</strong>
+                <p>Sakopi Bonpolo (setiap hari 20.00-23.00)</p>
+              </div>
+            </div>
+            
+            <div class="social-links" style="justify-content: flex-start; margin-top: 2rem;">
+              <a href="https://www.youtube.com/@Flowmusic_Official" target="_blank" class="social-link youtube">
+                <i class="fab fa-youtube"></i>
+                YouTube Channel
+              </a>
+              <a href="https://www.tiktok.com/@flowmusic_id?_r=1&_t=ZS-91nengaKD58" target="_blank" class="social-link">
+                <i class="fab fa-tiktok"></i>
+                TikTok Kami
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="fade-in">
+          <div class="card">
+            <h3>Booking via WhatsApp</h3>
+            <p style="margin-bottom: 1.5rem; color: var(--text-muted);">Hubungi kami langsung via WhatsApp untuk konsultasi dan booking cepat!</p>
+            
+            <div style="text-align: center;">
+              <div style="margin-bottom: 1.5rem;">
+                <i class="fab fa-whatsapp" style="font-size: 4rem; color: var(--whatsapp-color); margin-bottom: 1rem;"></i>
+                <h4 style="margin-bottom: 0.5rem;">Admin Flow Music</h4>
+                <p style="font-size: 1.2rem; font-weight: 600; color: var(--text-dark);">+62 822-2321-0102</p>
+              </div>
+              
+              <a href="https://wa.me/6282223210102?text=Halo%20Flow%20Music%2C%20saya%20ingin%20konsultasi%20tentang%20booking%20acara" 
+                 target="_blank" 
+                 class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i>
+                Chat via WhatsApp
+              </a>
+              
+              <p style="margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                Klik tombol di atas untuk langsung terhubung dengan admin kami via WhatsApp
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer with Logo -->
+  <footer>
+    <div class="footer-content">
+      <p>© 2025 Flow Music — All rights reserved.</p>
+      <div class="footer-links">
+        <a href="https://instagram.com/flowmusic.id" target="_blank">Instagram</a>
+        <a href="https://www.youtube.com/@Flowmusic_Official" target="_blank">YouTube</a>
+        <a href="https://www.tiktok.com/@flowmusic_id?_r=1&_t=ZS-91nengaKD58" target="_blank">TikTok</a>
+        <a href="https://wa.me/6282223210102" target="_blank">WhatsApp</a>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+        Membawa musik berkualitas untuk setiap momen spesial Anda
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Tab Navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      const navItems = document.querySelectorAll('.nav-item');
+      const tabSections = document.querySelectorAll('.tab-section');
+      
+      function setActiveTab(tabName) {
+        // Update nav items
+        navItems.forEach(item => {
+          item.classList.toggle('active', item.getAttribute('data-tab') === tabName);
+        });
+        
+        // Update tab sections
+        tabSections.forEach(section => {
+          section.classList.toggle('active', section.id === tabName);
+        });
+        
+        // Scroll to top when changing tabs (except home)
+        if (tabName !== 'home') {
+          document.getElementById(tabName).scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      
+      navItems.forEach(item => {
+        item.addEventListener('click', () => {
+          setActiveTab(item.getAttribute('data-tab'));
+        });
+      });
+      
+      // Set home as default active tab
+      setActiveTab('home');
+      
+      // Scroll animations
+      const fadeElements = document.querySelectorAll('.fade-in');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      fadeElements.forEach(el => observer.observe(el));
+      
+      // Video background - ensure it plays clearly
+      const heroBg = document.querySelector('.hero-bg');
+      if (heroBg) {
+        // Remove any filters for clear video
+        heroBg.style.filter = 'none';
+        heroBg.style.opacity = '1';
+        
+        window.addEventListener('scroll', () => {
+          const scrolled = window.pageYOffset;
+          const rate = scrolled * -0.3; // Reduced parallax for clearer video
+          heroBg.style.transform = `translate3d(0, ${rate}px, 0)`;
+        });
+        
+        // Ensure video plays
+        heroBg.addEventListener('loadeddata', function() {
+          this.play().catch(e => {
+            console.log("Autoplay prevented, user interaction required");
+          });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
